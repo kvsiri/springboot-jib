@@ -11,7 +11,7 @@
   </parent>
   <groupId>com.praveen.samples.jib</groupId>
   <artifactId>springboot-jib</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.2-SNAPSHOT</version>
   <name>springboot-jib</name>
   <description>Demo project for Spring Boot with Google JIB plugin</description>
 
@@ -58,11 +58,11 @@
             <image>openjdk:8-jdk-alpine</image>
           </from>
           <to>
-            <image>kamalakarv/springboot-jib:${project.version}</image>
+            <image>docker.io1/kamalakarv/springboot-jib:${project.version}</image>
           </to>
           <container>
             <ports>
-              <port>8080</port>
+              <port>8181</port>
             </ports>
           </container>
         </configuration>
