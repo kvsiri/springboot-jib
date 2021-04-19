@@ -1,11 +1,5 @@
 pipeline {
     agent any
-
-    environment { 
-        registry = "kamalakarv/springboot-jib:${project.version}" 
-        dockerImage = '' 
-    }
-
     stages {
         stage('SCM') {
             steps {
@@ -30,11 +24,9 @@ pipeline {
         }
         stage('Build Docker Image & Push to DockerHub') {
             steps {
-                 script { 
-                    dockerImage = docker.build registry + ":$BUILD_NUMBER" 
-                }
+                
                 withMaven(maven:'Maven 3.5') {
-                        sh 'mvn jib:build -Dimage=$dockerImage'
+                        sh 'mvn jib:build'
                 }
             }
         }
