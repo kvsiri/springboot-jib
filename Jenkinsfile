@@ -7,10 +7,17 @@ pipeline {
                 git url: 'https://github.com/kvsiri/springboot-jib.git'
             }
         }
-        stage('Build') {
+        stage('Compile') {
             steps {
                 withMaven(maven:'Maven 3.5') {
-                        sh 'mvn clean install'
+                        sh 'mvn clean compile'
+                }
+            }
+        }
+        stage('Unit Tests') {
+            steps {
+                withMaven(maven:'Maven 3.5') {
+                        sh 'mvn clean compile'
                 }
             }
         }
@@ -32,4 +39,5 @@ pipeline {
             }
         }
     }
+    
 }
