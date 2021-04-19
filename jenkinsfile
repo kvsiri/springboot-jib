@@ -1,27 +1,42 @@
 pipeline {
     agent any
+
+    environment { 
+        registry = "kamalakarv/springboot-jib:${project.version}" 
+        dockerImage = '' 
+    }
+
+
+
     stages {
         stage('SCM') {
             steps {
-                git url: 'https://github.com/foo/bar.git'
+                git url: 'https://github.com/kvsiri/springboot-jib.git'
             }
         }
-        stage('build && SonarQube analysis') {
+        stage('Build') {
+            steps {
+                withMaven(maven:'Maven 3.5') {
+                        sh 'mvn clean install'
+                }
+            }
+        }
+        stage('SonarQube analysis') {
             steps {
                 withSonarQubeEnv('My SonarQube Server') {
-                    // Optionally use a Maven environment you've configured already
                     withMaven(maven:'Maven 3.5') {
-                        sh 'mvn clean package sonar:sonar'
+                        sh 'mvn sonar:sonar'
                     }
                 }
             }
         }
-        stage("Quality Gate") {
+        stage('Build Docker Image & Push to DockerHub') {
             steps {
-                timeout(time: 1, unit: 'HOURS') {
-                    // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
-                    // true = set pipeline to UNSTABLE, false = don't
-                    waitForQualityGate abortPipeline: true
+                 script { 
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER" 
+                }
+                withMaven(maven:'Maven 3.5') {
+                        sh 'mvn jib:build -Dimage=$dockerImage'
                 }
             }
         }
