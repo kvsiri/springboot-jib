@@ -30,15 +30,6 @@ pipeline {
                 }
             }
         }
-        stage('SonarQube analysis') {
-            steps {
-                withSonarQubeEnv('My SonarQube Server') {
-                    withMaven(maven:'Maven 3.5') {
-                        sh 'mvn sonar:sonar'
-                    }
-                }
-            }
-        }
         stage('Build Docker Image & Push to DockerHub') {
             steps {
                 
