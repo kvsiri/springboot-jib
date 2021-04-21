@@ -57,9 +57,6 @@
           <from>
             <image>openjdk:8-jdk-alpine</image>
           </from>
-          <to>
-            <image>kamalakarv/springboot-jib:${project.version}</image>
-          </to>
           <container>
             <ports>
               <port>8181</port>
