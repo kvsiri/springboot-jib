@@ -46,12 +46,12 @@ pipeline {
                 env.IMAGE_ID = IMAGE_ID
                     }
                }
- 
-
+        }
         stage('Get Image Vulns - Qualys Plugin') { 
             getImageVulnsFromQualys useGlobalConfig:true,
             imageIds: env.IMAGE_ID
              }
+        }   
     }
 
 }
