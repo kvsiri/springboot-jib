@@ -34,7 +34,7 @@ pipeline {
             steps {
                 
                 withMaven(maven:'Maven 3.5') {
-                        sh 'mvn jib:build -Dimage=kamalakarv/springboot-jib:${project.version}-${BRANCH_NAME}-${BUILD_NUMBER}'
+                        sh 'mvn jib:build -Dimage=kamalakarv/springboot-jib:$BRANCH_NAME-$BUILD_NUMBER'
                 }
             }
         }
