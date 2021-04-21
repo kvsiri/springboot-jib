@@ -45,13 +45,12 @@ pipeline {
                 def IMAGE_ID = sh(script: "docker images | grep -E '^kamalakarv/springboot-jib' | head -1 | awk '{print \$3}'", returnStdout:true).trim()
                 env.IMAGE_ID = IMAGE_ID
                     }
-               }
         }
+        
         stage('Get Image Vulns - Qualys Plugin') { 
             getImageVulnsFromQualys useGlobalConfig:true,
             imageIds: env.IMAGE_ID
-             }
-        }   
-    }
+        }
+    }   
 
 }
